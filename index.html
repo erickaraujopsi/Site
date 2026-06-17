@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erick Araújo | Psicólogo Clínico</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Paleta de Cores Acolhedora e Sofisticada */
+        :root {
+            --bg-color: #FAF6F0; 
+            --primary-color: #2E3B32; 
+            --accent-color: #C88D66; 
+            --text-color: #4A4A4A;
+            --white: #FFFFFF;
+            --card-shadow: 0 15px 40px rgba(46, 59, 50, 0.05);
+        }
+
+        /* Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo-container {
+            font-family: 'Lora', serif;
+            color: var(--primary-color);
+        }
+
+        /* Classes de Animação */
+        .hidden {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        /* Container do Logo + Nome */
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-link img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text {
+            font-family: 'Lora', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            line-height: 1.2;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Seção Hero */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 100px 10%;
+            min-height: 90vh;
+            gap: 60px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(200,141,102,0.1) 0%, rgba(250,246,240,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h2 {
+            font-size: 1rem;
+            color: var(--accent-color);
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            margin-bottom: 40px;
+            color: #5a5a5a;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 20px rgba(46, 59, 50, 0.15);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 25px rgba(200, 141, 102, 0.25);
+        }
+
+        /* Animação Flutuante */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* DESIGN DA IMAGEM DO HERO */
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-wrapper {
+            position: relative;
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .img-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 100%; 
+            height: 100%; 
+            border: 3px solid var(--accent-color);
+            border-radius: 24px;
+            top: 25px; 
+            left: 25px; 
+            z-index: -1;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            display: block;
+            border-radius: 24px; 
+            border: 10px solid var(--white); 
+            box-shadow: var(--card-shadow);
+            object-fit: cover;
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Áreas de Atuação (Como posso te ajudar) */
+        .atuacao {
+            padding: 80px 10%;
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .atuacao h2 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        .atuacao-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .atuacao-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            text-align: center;
+            gap: 15px;
+            padding: 40px 30px;
+            background: var(--bg-color);
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .atuacao-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .atuacao-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(46, 59, 50, 0.08);
+        }
+
+        .atuacao-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .atuacao-item i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .atuacao-item span {
+            font-weight: 600;
+            font-family: 'Lora', serif;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+
+        .atuacao-item p {
+            font-size: 0.95rem;
+            color: #5a5a5a;
+            line-height: 1.6;
+            text-align: justify; 
+            width: 100%;
+        }
+
+        /* Seção Sobre */
+        .secao-texto {
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .secao-texto.branca {
+            background-color: var(--white);
+        }
+
+        .secao-texto h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .container-texto {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container-texto p {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .btn-center-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        /* Seção Abordagem */
+        .abordagem-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .abordagem-card {
+            background-color: var(--bg-color);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .abordagem-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .abordagem-card i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            background: rgba(200, 141, 102, 0.1);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto; 
+        }
+
+        .abordagem-card p {
+            font-size: 1.05rem;
+            text-align: justify; 
+            margin-bottom: 0;
+        }
+
+        /* Dúvidas Frequentes */
+        .faq {
+            padding: 100px 5%;
+            background-color: var(--bg-color);
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .faq-card {
+            background-color: var(--white);
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border-top: 5px solid var(--accent-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .faq-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(46, 59, 50, 0.08);
+        }
+
+        .faq-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .faq-card p {
+            font-size: 0.95rem;
+            color: #5a5a5a;
+        }
+
+        /* Rodapé e Legal */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 10% 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer h2 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .btn-footer {
+            background-color: var(--accent-color);
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-footer:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        .footer-legal {
+            margin-top: 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .aviso-emergencia {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0,0,0,0.2);
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 0.75rem; 
+            font-style: italic;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-links span {
+            font-size: 0.9rem;
+            color: var(--white);
+            text-decoration: underline;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links span:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* Estilo do Banner de Cookies */
+        .cookie-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(150%);
+            width: 90%;
+            max-width: 800px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            z-index: 9998;
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .cookie-banner.show-banner {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .cookie-banner p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .btn-cookie {
+            background-color: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-cookie:hover {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+        }
+
+        /* Estilo do Modal de Privacidade */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(46, 59, 50, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            width: 90%;
+            max-width: 650px;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            color: var(--text-color);
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.3s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-color);
+            background: none;
+            border: none;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-color);
+        }
+
+        .modal-content h3 {
+            font-family: 'Lora', serif;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+        }
+
+        .modal-content p, .modal-content li {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .modal-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .atuacao-grid { grid-template-columns: repeat(2, 1fr); }
+            .faq-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 5%;
+            }
+            .nav-links { display: none; }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 60px 5%;
+                margin-top: 20px;
+            }
+            .hero-text h1 { font-size: 2.8rem; }
+            
+            .img-wrapper::after { top: 15px; left: 15px; }
+            
+            .atuacao-grid, .abordagem-grid, .faq-grid {
+                grid-template-columns: 1fr; 
+            }
+
+            .cookie-banner {
+                flex-direction: column;
+                text-align: center;
+                bottom: 10px;
+            }
+            .cookie-banner p { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-link">
+            <img src="barquinho.png" alt="Logo">
+            <span class="logo-text">Erick Araújo Psicólogo</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#quem-sou">Quem Sou</a></li>
+            <li><a href="#abordagem">Abordagem</a></li>
+            <li><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+    </header>
+
+    <section id="inicio" class="hero hidden">
+        <div class="hero-text">
+            <h2>Psicólogo Clínico • CRP 19/4731</h2>
+            <h1>Um espaço de escuta e acolhimento.</h1>
+            <p>Se você está enfrentando dificuldades emocionais ou comportamentais, estou aqui para ajudar. Terapia Individual Online.</p>
+            <a id="btn-whatsapp-hero" href="https://wa.me/5579999902484?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20seu%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20psicoterapia%20online." class="btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Agendar Consulta
+            </a>
+        </div>
+        <div class="hero-image">
+            <div class="img-wrapper">
+                <img src="foto-erick.jpg" alt="Foto de Perfil do Erick Araújo lendo um livro">
+            </div>
+        </div>
+    </section>
+
+    <section class="atuacao hidden">
+        <h2>Como posso te ajudar</h2>
+        <div class="atuacao-grid">
+            <div class="atuacao-item">
+                <i class="fas fa-brain"></i>
+                <span>Ansiedade</span>
+                <p>Mais do que um alarme constante, é o seu corpo tentando te proteger de algo que a sua história ensinou a temer. Vamos juntos entender esses sinais e construir novas formas de segurança.</p>
+            </div>
+            <div class="atuacao-item">
+                <i class="fas fa-heart"></i>
+                <span>Autoestima</span>
+                <p>A forma como nos tratamos muitas vezes espelha como fomos ensinados a nos ver. O objetivo aqui é reconstruir essa relação consigo mesmo, abrindo espaço para a validação e o respeito próprio.</p>
+            </div>
+            <div class="atuacao-item">
+                <i class="fas fa-cloud-rain"></i>
+                <span>Depressão</span>
+                <p>Quando as coisas perdem a cor, não é fraqueza. É muitas vezes o esgotamento de quem lidou com muito por muito tempo. Vamos reconectar você, no seu próprio ritmo, ao que te traz sentido e vitalidade.</p>
+            </div>
+            <div class="atuacao-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Relações</span>
+                <p>Nossos vínculos moldam quem somos. Dificuldades em colocar limites ou se entregar são defesas aprendidas. Podemos explorar novos padrões para construir relações interpessoais mais seguras e genuínas.</p>
+            </div>
+            <div class="atuacao-item">
+                <i class="fas fa-battery-quarter"></i>
+                <span>Estresse</span>
+                <p>O peso de ter que "dar conta" de tudo gera respostas físicas do ambiente sobre você. Trabalharemos para identificar gatilhos de sobrecarga e desenvolver pausas reais e estratégias de enfrentamento.</p>
+            </div>
+            <div class="atuacao-item">
+                <i class="fas fa-compass"></i>
+                <span>Autoconhecimento</span>
+                <p>A sensação de vazio ou confusão frequentemente surge da desconexão com nossos próprios valores. Explorar quem você é e o que faz sentido para sua vida é um passo fundamental para escolhas mais autênticas.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="quem-sou" class="secao-texto hidden">
+        <div class="container-texto">
+            <h2>Quem sou</h2>
+            <p>Me chamo Erick Matheus dos Santos Araújo, sou psicólogo com formação na Universidade Federal de Sergipe (UFS) e atualmente mestrando em Psicologia pela Universidade Estado do Rio de Janeiro (UERJ). Tenho especialização em Direitos Humanos e Saúde pela FIOCRUZ e realizo atendimentos clínicos desde a minha formação.</p>
+            <p>Minha clínica é orientada pelo bem-estar do paciente, buscando compreender necessidades individuais e promover um espaço seguro sem julgamentos. Acredito que a escuta atenta e o respeito pela singularidade de cada história são as principais ferramentas para a promoção de saúde mental.</p>
+            
+            <div class="btn-center-container">
+                <a id="btn-whatsapp-sobre" href="https://wa.me/5579999902484?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20seu%20trabalho%20e%20agendar%20uma%20sess%C3%A3o." class="btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Entre em contato
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="abordagem" class="secao-texto branca hidden">
+        <h2>Minha Abordagem</h2>
+        <div class="abordagem-grid">
+            <div class="abordagem-card">
+                <i class="fas fa-door-open"></i>
+                <p>Quando decidimos começar a terapia, geralmente há um incômodo empurrando a decisão: uma ansiedade que paralisa, a sensação de estar repetindo os mesmos erros ou um esgotamento que a gente não consegue explicar. Meu papel aqui não é te dar um diagnóstico pronto ou tentar "consertar" o que parece errado, mas entender como você construiu sua forma de estar no mundo.</p>
+            </div>
+            <div class="abordagem-card">
+                <i class="fas fa-project-diagram"></i>
+                <p>Eu trabalho com a Análise do Comportamento. Por trás desse nome clínico, existe uma premissa muito acolhedora: tudo o que fazemos, pensamos e sentimos faz sentido dentro da nossa história. Ninguém funciona no vazio. Suas reações atuais são respostas ao ambiente e às experiências que você viveu.</p>
+            </div>
+            <div class="abordagem-card">
+                <i class="fas fa-search"></i>
+                <p>Para compreender isso a fundo, uso a Análise Funcional. Na prática, significa que não vamos olhar apenas para o sintoma ou para o erro, mas para o contexto dele. Se hoje um comportamento te causa sofrimento (como se isolar, se cobrar demais ou procrastinar), é muito provável que, em algum momento do passado, ele tenha sido a única ferramenta que você encontrou para se proteger ou dar conta de uma situação difícil.</p>
+            </div>
+            <div class="abordagem-card">
+                <i class="fas fa-map"></i>
+                <p>A terapia é esse processo de mapeamento. Quando você entende a função das suas próprias atitudes e descobre como suas engrenagens funcionam, o peso da autocrítica diminui. É a partir dessa clareza que você deixa de agir no piloto automático e ganha autonomia para escolher, de forma consciente, caminhos mais leves e coerentes com quem você quer ser hoje.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="duvidas" class="faq hidden">
+        <h2>Dúvidas Frequentes</h2>
+        <div class="faq-grid">
+            <div class="faq-card">
+                <h3>Terapia. O que é isso?</h3>
+                <p>A terapia pode ser entendida como um espaço composto por acolhimento, escuta qualificada, e uma relação mútua de confiança. Na medida em que o paciente deposita seu sofrimento no ambiente terapêutico ele espera que algo seja feito. A partir da construção do vínculo, ao psicólogo é permitido contribuir nesse processo.</p>
+            </div>
+            <div class="faq-card">
+                <h3>Quanto tempo leva?</h3>
+                <p>A terapia não tem um prazo de validade pré-determinado, porque cada pessoa traz uma história única. Os encontros duram cerca de 50 minutos. O encerramento é construído em conjunto, quando percebemos que as queixas iniciais foram integradas e há autonomia para seguir.</p>
+            </div>
+            <div class="faq-card">
+                <h3>O que falar na primeira sessão?</h3>
+                <p>Não existe um roteiro. No primeiro encontro, o objetivo principal é nos conhecermos e entendermos o que motivou você a buscar ajuda. Você pode trazer um problem específico, uma crise recente ou apenas uma sensação de que as coisas não vão bem. O ritmo é sempre seu.</p>
+            </div>
+            <div class="faq-card">
+                <h3>O que eu disser será confidencial?</h3>
+                <p>Sim. O sigilo profissional é a base de todo o trabalho e uma exigência ética rigorosa. Absolutamente tudo o que é compartilhado permanece sob total confidencialidade. O consultório é um espaço livre de julgamentos morais, onde qualquer pensamento pode ser olhado com respeito e cuidado.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contato" class="hidden">
+        <div class="footer-content">
+            <h2>Pronto(a) para dar o primeiro passo?</h2>
+            <p>Entre em contato para agendar sua primeira consulta.</p>
+            <a id="btn-whatsapp-footer" href="https://wa.me/5579999902484?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20seu%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20psicoterapia%20online." class="btn btn-footer" target="_blank">
+                <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+            </a>
+            
+            <div class="footer-legal">
+                <div class="aviso-emergencia">
+                    <i class="fas fa-exclamation-circle"></i> <strong>Atenção:</strong> O atendimento psicoterapêutico online não é indicado para casos de emergência psiquiátrica grave. Em caso de crise ou risco à vida, ligue imediatamente para o CVV no telefone <strong>188</strong> ou procure o hospital mais próximo.
+                </div>
+                
+                <div class="footer-links">
+                    <span onclick="abrirModal()">Política de Privacidade</span>
+                </div>
+                
+                <div class="copyright">
+                    &copy; 2026 por Erick Matheus dos Santos Araújo.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cookie-banner" class="cookie-banner">
+        <p>Utilizamos cookies para analisar o tráfego do site e melhorar sua experiência, em conformidade com a LGPD e o Consent Mode do Google. Ao continuar navegando, você concorda com o uso dessas tecnologias e com a nossa Política de Privacidade.</p>
+        <button class="btn-cookie" onclick="aceitarCookies()">Entendi</button>
+    </div>
+
+    <div id="modal-privacidade" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="fecharModal()">&times;</button>
+            <h3>Política de Privacidade</h3>
+            <p>A proteção da sua privacidade é fundamental para o nosso trabalho. Esta política descreve como os seus dados são tratados de acordo com o Conselho Federal de Psicologia (CFP) e a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).</p>
+            
+            <ul>
+                <li><strong>Coleta de Dados:</strong> Coletamos apenas informações estritamente necessárias (nome, contato) via WhatsApp ou e-mail, exclusivamente com o propósito de agendamento de consultas e comunicação profissional.</li>
+                <li><strong>Sigilo Ético:</strong> Todo o conteúdo das sessões de psicoterapia, bem como a sua identidade, são protegidos por rigoroso sigilo profissional, conforme estabelecido pelo Código de Ética Profissional do Psicólogo.</li>
+                <li><strong>Compartilhamento:</strong> Seus dados pessoais não serão vendidos, alugados ou compartilhados com terceiros sob nenhuma circunstância, salvo em casos de exigência legal estrita ou risco iminente de morte, como previsto na ética clínica.</li>
+                <li><strong>Armazenamento:</strong> Utilizamos plataformas seguras e criptografadas para o atendimento online e eventuais anotações de prontuário, garantindo a proteção contra acessos não autorizados.</li>
+            </ul>
+            
+            <p>Ao entrar em contato via WhatsApp ou navegar neste site, você concorda com os termos aqui descritos. Para dúvidas sobre o tratamento de seus dados, entre em contato diretamente pelo número disponível no site.</p>
+        </div>
+    </div>
+
+    <script>
+        // Animação de Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.1 
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        // Lógica do Banner de Cookies
+        document.addEventListener("DOMContentLoaded", function() {
+            const consentimento = localStorage.getItem('cookieConsentido');
+            if (!consentimento) {
+                setTimeout(() => {
+                    document.getElementById('cookie-banner').classList.add('show-banner');
+                }, 1000);
+            }
+        });
+
+        function aceitarCookies() {
+            localStorage.setItem('cookieConsentido', 'sim');
+            document.getElementById('cookie-banner').classList.remove('show-banner');
+        }
+
+        // Lógica do Modal de Privacidade
+        const modal = document.getElementById('modal-privacidade');
+
+        function abrirModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function fecharModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                fecharModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
